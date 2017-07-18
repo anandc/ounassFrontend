@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
 import './App.css';
-import { fetchProducts } from './Api/api';
+import configureStore from './store/configureStore';
+import { searchAction } from './actions/productActions';
+import Products from './containers/products.js';
+const store = configureStore();
 
 class App extends Component {
-  componentDidMount() {
-    fetchProducts();
-  }
   render() {
     return (
-      <div className="App">
-        testing....
-      </div>
+      <Provider store={store}>
+        <Products />
+      </Provider>
     );
   }
 }

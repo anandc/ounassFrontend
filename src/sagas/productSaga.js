@@ -1,17 +1,25 @@
-import { put, call } from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
 import { fetchProducts } from '../Api/api';
 import * as types from '../constants/actionTypes';
+import { receiveProductAction } from '../actions/productActions';
 
-export function* searchSaga({ payload }) {
+export function* searchProductSaga({ payload }) {
   try {
-    const products = yield call(fetchProducts, payload);
-    yield [
-      put({ type: types.SHUTTER_VIDEOS_SUCCESS, videos }),
-      put({ type: types.SELECTED_VIDEO, video: videos[0] }),
-      put({ type: types.FLICKR_IMAGES_SUCCESS, images }),
-      put({ type: types.SELECTED_IMAGE, image: images[0] })
-    ];
+    const data = yield call(fetchProducts, payload);
+    let products = [];
+    if (data && data.hits) {
+      products = data.hits.map((item) => ({
+        name: item.name,
+        image: item.image,
+        price: item.minPrice
+      }));
+    }
+    yield put(receiveProductAction(products));
   } catch (error) {
     yield put({ type: 'SEARCH_ERROR', error });
   }
+}
+
+export function* searchProducts() {
+  yield takeLatest(types.SEARCH_REQUEST, searchProductSaga)
 }
