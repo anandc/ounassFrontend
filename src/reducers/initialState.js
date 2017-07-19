@@ -1,3 +1,6 @@
 export default {
-  products: []
+  products: [],
+  colors: [],
+  selectedColor: 'Default',
+  searchString: ''
 };

@@ -3,13 +3,33 @@ const searchAction = (payload) => ({
   type: types.SEARCH_REQUEST,
   payload
 });
-function receiveProductAction(payload) {
+const receiveProductAction = (payload) => {
     return {
         type: types.RECEIVE_PRODUCTS,
         payload
     }
-}
+};
+const colorAction = (payload) => ({
+  type: types.COLOR_REQUEST,
+  payload
+});
+const receiveColorAction = (payload) => {
+    return {
+        type: types.RECEIVE_COLORS,
+        payload
+    }
+};
+const searchCriteriaChangeAction = (payload) => {
+	return {
+	  type: types.SEARCH_CRITERIA_CHANGED,
+	  payload
+	}
+};
+
 export {
 	searchAction,
-	receiveProductAction
+	receiveProductAction,
+	colorAction,
+	receiveColorAction,
+	searchCriteriaChangeAction
 };

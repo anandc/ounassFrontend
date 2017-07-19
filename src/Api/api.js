@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
-const fetchProducts = () => {
-	return fetch('http://localhost:4000/search/?searchString=', {
+const PATH = 'http://localhost:4000';
+const fetchProducts = (searchStr, color) => {
+	return fetch(`${PATH}/search/?searchString=${searchStr}&filters[availableColors][]=${color}`, {
       method: "POST",
       body: ''
     }).then(function(response) {
@@ -9,4 +10,11 @@ const fetchProducts = () => {
       return data;
     });
 };
-export { fetchProducts };
+const fetchColors = () => {
+	return fetch(`${PATH}/colors/`).then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      return data;
+    });
+};
+export { fetchProducts, fetchColors };
